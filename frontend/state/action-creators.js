@@ -1,4 +1,5 @@
 // ❗ You don't need to add extra action creators to achieve MVP
+import axios from 'axios'
 import {
   MOVE_CLOCKWISE,
   MOVE_COUNTERCLOCKWISE,
@@ -17,11 +18,15 @@ export function moveCounterClockwise() {
   return({type: MOVE_COUNTERCLOCKWISE})
 }
 
-export function selectAnswer() { }
+export function selectAnswer(answer_id) {
+  return({type: SET_SELECTED_ANSWER, payload: answer_id})
+}
 
 export function setMessage() { }
 
-export function setQuiz() { }
+export function setQuiz(quiz) {
+  return({type: SET_QUIZ_INTO_STATE, payload: quiz})
+}
 
 export function inputChange() { }
 
@@ -33,6 +38,14 @@ export function fetchQuiz() {
     // First, dispatch an action to reset the quiz state (so the "Loading next quiz..." message can display)
     // On successful GET:
     // - Dispatch an action to send the obtained quiz to its state
+    //dispatch(setQuiz(false))
+    axios.get('http://localhost:9000/api/quiz/next')
+      .then(res => {
+        dispatch(setQuiz(res.data))
+      })
+      .catch(err => {
+        console.log(err)
+      })
   }
 }
 export function postAnswer() {
