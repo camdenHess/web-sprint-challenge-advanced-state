@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import * as actionCreators from '../state/action-creators'
 
-export function Form({ inputChange, form, postQuiz }) {
+export function Form({ inputChange, form, postQuiz, resetForm }) {
 
   const onChange = evt => {
     const { id, value } = evt.target
@@ -12,6 +12,7 @@ export function Form({ inputChange, form, postQuiz }) {
   const onSubmit = evt => {
     evt.preventDefault()
     postQuiz(form)
+    resetForm()
   }
 
   return (
