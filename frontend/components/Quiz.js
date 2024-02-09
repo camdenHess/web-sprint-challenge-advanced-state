@@ -2,10 +2,11 @@ import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 import * as actionCreators from '../state/action-creators'
 
-export function Quiz({ fetchQuiz, selectAnswer, quiz, selectedAnswer }) {
+export function Quiz({ fetchQuiz, selectAnswer, quiz, selectedAnswer, postAnswer }) {
   useEffect(() => {
     fetchQuiz()
   },[])
+
   return (
     <div id="wrapper">
       {
@@ -30,7 +31,7 @@ export function Quiz({ fetchQuiz, selectAnswer, quiz, selectedAnswer }) {
               </div>
             </div>
 
-            <button id="submitAnswerBtn" disabled={!selectedAnswer}>Submit answer</button>
+            <button id="submitAnswerBtn" disabled={!selectedAnswer} onClick={() => postAnswer(quiz, selectedAnswer)}>Submit answer</button>
           </>
         ) : 'Loading next quiz...'
       }
